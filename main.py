@@ -27,19 +27,19 @@ SCRAPERS = [
     fetch_paypal_jobs,
     fetch_uber_jobs,
     lambda: fetch_linkedin_jobs(
-        "https://www.linkedin.com/jobs/search?keywords=Software%20Engineer&location=San%20Jose&geoId=106233382&distance=50&f_TPR=r3600&position=1&pageNum=0", 
+        "https://www.linkedin.com/jobs/search/?&distance=100&f_E=2%2C3&f_TPR=r3600&geoId=106233382&keywords=Software%20Engineer&location=San%20Jose&origin=JOB_SEARCH_PAGE_JOB_FILTER&sortBy=R", 
         "linkedin_software_engineer"
     ),
      lambda: fetch_linkedin_jobs(
-        "https://www.linkedin.com/jobs/search?keywords=Full%20Stack&location=San%20Jose&geoId=106233382&distance=25&f_TPR=r3600&position=1&pageNum=0", 
+        "https://www.linkedin.com/jobs/search/?&distance=100&f_E=2%2C3&f_TPR=r3600&geoId=106233382&keywords=full%20stack%20engineer&origin=JOB_SEARCH_PAGE_JOB_FILTER&refresh=true&sortBy=R", 
         "linkedin_full_stack"
     ),
     lambda: fetch_linkedin_jobs(
-        "https://www.linkedin.com/jobs/search?keywords=frontend&location=San%20Jose&geoId=106233382&distance=25&f_TPR=r3600&position=1&pageNum=0", 
+        "https://www.linkedin.com/jobs/search/?distance=100&f_E=2%2C3&f_TPR=r3600&geoId=106233382&keywords=frontend%20developer&origin=JOB_SEARCH_PAGE_JOB_FILTER&refresh=true&position=1&pageNum=0", 
         "linkedin_frontend"
     ),
     lambda: fetch_linkedin_jobs(
-        "https://www.linkedin.com/jobs/search?keywords=mobile&location=San%20Jose&geoId=106233382&distance=25&f_TPR=r3600&position=1&pageNum=0", 
+        "https://www.linkedin.com/jobs/search/?&distance=100&f_E=2%2C3&f_TPR=r3600&geoId=106233382&keywords=mobile%20application%20developer&origin=JOB_SEARCH_PAGE_KEYWORD_AUTOCOMPLETE&refresh=true", 
         "linkedin_mobile"
     ),
 ]
