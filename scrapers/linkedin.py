@@ -54,18 +54,31 @@ def fetch_linkedin_jobs(url: str, source: str):
             browser.close()
             return []
 
+        # Define keywords for URL-based skipping
+        skip_url_keywords = ["lensa"]
+
         for card in job_cards:
             title_el = card.query_selector("h3.base-search-card__title")
             company_el = card.query_selector("h4.base-search-card__subtitle a")
             location_el = card.query_selector(".job-search-card__location")
             date_el = card.query_selector(".job-search-card__listdate--new")
-            job_url = card.query_selector("a.base-card__full-link")
+            job_url_el = card.query_selector("a.base-card__full-link")
 
+            # Skip jobs via Dice
             dice_link = card.query_selector('a.hidden-nested-link')
-            if dice_link and dice_link.inner_text().strip() == "Jobs via Dice":
+            if dice_link and dice_link.inner_text().strip().lower() == "jobs via dice":
+                print("⏭️ Skipping job via Dice.")
                 continue
 
-            if not (title_el and company_el and location_el and job_url):
+            if not (title_el and company_el and location_el and job_url_el):
+                continue
+
+            job_url_original = job_url_el.get_attribute("href").strip()
+            job_url_lower = job_url_original.lower()
+
+            # Skip based on blocked URL keywords
+            if any(keyword in job_url_lower for keyword in skip_url_keywords):
+                print(f"⏭️ Skipping job from blocked source (URL): {job_url_original}")
                 continue
 
             base_card = card.query_selector("div.base-search-card")
@@ -80,7 +93,7 @@ def fetch_linkedin_jobs(url: str, source: str):
                 "company": source,
                 "location": location_el.inner_text().strip(),
                 "posted_date": date_el.inner_text().strip() if date_el else "Unknown",
-                "url": job_url.get_attribute("href").strip(),
+                "url": job_url_original,
                 "source": source
             })
 
