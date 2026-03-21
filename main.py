@@ -20,27 +20,27 @@ from scrapers.uber import fetch_jobs as fetch_uber_jobs
 from scrapers.linkedin import fetch_linkedin_jobs
 
 SCRAPERS = [
-    fetch_servicenow_jobs,
-    fetch_adobe_jobs,
-    fetch_apple_jobs,
-    fetch_nvidia_jobs,
-    fetch_paypal_jobs,
-    fetch_uber_jobs,
+    # fetch_servicenow_jobs,
+    # fetch_adobe_jobs,
+    # fetch_apple_jobs,
+    # fetch_nvidia_jobs,
+    # fetch_paypal_jobs,
+    # fetch_uber_jobs,
     lambda: fetch_linkedin_jobs(
-        "https://www.linkedin.com/jobs/search/?&distance=100&f_E=2%2C3&f_TPR=r3600&geoId=106233382&keywords=Software%20Engineer&location=San%20Jose&origin=JOB_SEARCH_PAGE_JOB_FILTER&sortBy=R", 
-        "linkedin_software_engineer"
+        "https://www.linkedin.com/jobs/search/?currentJobId=4388296709&distance=50&f_E=1%2C2%2C3&f_TPR=r3600&geoId=106233382&keywords=project%20manager&origin=JOB_SEARCH_PAGE_JOB_FILTER&refresh=true&sortBy=R", 
+        "linkedin_project_manager"
     ),
      lambda: fetch_linkedin_jobs(
-        "https://www.linkedin.com/jobs/search/?&distance=100&f_E=2%2C3&f_TPR=r3600&geoId=106233382&keywords=full%20stack%20engineer&origin=JOB_SEARCH_PAGE_JOB_FILTER&refresh=true&sortBy=R", 
-        "linkedin_full_stack"
+        "https://www.linkedin.com/jobs/search/?currentJobId=4388586727&distance=50&f_E=1%2C2%2C3&f_TPR=r3600&geoId=106233382&keywords=product%20manager&origin=JOB_SEARCH_PAGE_SEARCH_BUTTON&refresh=true&sortBy=R", 
+        "linkedin_product_manager"
     ),
     lambda: fetch_linkedin_jobs(
-        "https://www.linkedin.com/jobs/search/?distance=100&f_E=2%2C3&f_TPR=r3600&geoId=106233382&keywords=frontend%20developer&origin=JOB_SEARCH_PAGE_JOB_FILTER&refresh=true&position=1&pageNum=0", 
-        "linkedin_frontend"
+        "https://www.linkedin.com/jobs/search/?currentJobId=4388586727&distance=50&f_E=1%2C2%2C3&f_TPR=r3600&geoId=106233382&keywords=program%20manager&origin=JOB_SEARCH_PAGE_SEARCH_BUTTON&refresh=true&sortBy=R",
+        "linkedin_program_manager"
     ),
     lambda: fetch_linkedin_jobs(
-        "https://www.linkedin.com/jobs/search/?&distance=100&f_E=2%2C3&f_TPR=r3600&geoId=106233382&keywords=mobile%20application%20developer&origin=JOB_SEARCH_PAGE_KEYWORD_AUTOCOMPLETE&refresh=true", 
-        "linkedin_mobile"
+        "https://www.linkedin.com/jobs/search/?currentJobId=4388735820&distance=50&f_E=1%2C2%2C3&f_TPR=r3600&geoId=106233382&keywords=scrum%20master&origin=JOB_SEARCH_PAGE_KEYWORD_AUTOCOMPLETE&refresh=true&sortBy=R",
+        "linkedin_scrum_master"
     ),
 ]
 

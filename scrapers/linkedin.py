@@ -22,10 +22,22 @@ def fetch_linkedin_jobs(url: str, source: str):
 
         page.goto(url, timeout=60000)
 
-        try:
-            page.wait_for_selector("ul.jobs-search__results-list", timeout=15000)
-        except Exception as e:
-            print(f"⚠️ Job list container not found for {source}: {e}")
+        print(f"⏳ Waiting for job list or 'No matching jobs found' text...")
+        found = False
+        for _ in range(15):  # 15 seconds timeout
+            if page.locator("ul.jobs-search__results-list").is_visible():
+                found = True
+                break
+            # Check for no jobs text
+            no_jobs_texts = ["No matching jobs found", "We couldn’t find a match", "We couldn't find a match"]
+            if any(page.get_by_text(t, exact=False).is_visible() for t in no_jobs_texts):
+                print(f"ℹ️ No matching jobs found on page for {source}.")
+                browser.close()
+                return []
+            time.sleep(1)
+
+        if not found:
+            print(f"⚠️ Job list container not found for {source} (Timeout).")
             browser.close()
             return []
 
