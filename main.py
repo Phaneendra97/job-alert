@@ -42,6 +42,10 @@ SCRAPERS = [
         "https://www.linkedin.com/jobs/search/?currentJobId=4388735820&distance=50&f_E=1%2C2%2C3&f_TPR=r3600&geoId=106233382&keywords=scrum%20master&origin=JOB_SEARCH_PAGE_KEYWORD_AUTOCOMPLETE&refresh=true&sortBy=R",
         "linkedin_scrum_master"
     ),
+    lambda: fetch_linkedin_jobs(
+        "https://www.linkedin.com/jobs/search/?currentJobId=4402768395&distance=50&f_E=1%2C2%2C3&f_TPR=r3600&geoId=106233382&keywords=project%20manager%20intern&origin=JOB_SEARCH_PAGE_SEARCH_BUTTON&refresh=true&sortBy=R",
+        "linkedin_project_manager_intern"
+    ),
 ]
 
 def main():

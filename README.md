@@ -56,7 +56,7 @@ To run these queries:
     DB_PASSWORD=pass
     EMAIL_ADDRESS=sender-email@gmail.com
     EMAIL_PASSWORD=your_app_email_password  # Refer: https://support.google.com/mail/answer/185833?hl=en
-    EMAIL_RECIPIENT=email@gmail.com,email2@gmail.com  # Defaults to sender
+    EMAIL_RECIPIENT=email@gmail.com,yashumohan02@gmail.com  # Defaults to sender
     ```
 
 ### Deploying on Render.com

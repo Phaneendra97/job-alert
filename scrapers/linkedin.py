@@ -24,17 +24,24 @@ def fetch_linkedin_jobs(url: str, source: str):
 
         print(f"⏳ Waiting for job list or 'No matching jobs found' text...")
         found = False
+        no_jobs_texts = ["No matching jobs found", "We couldn’t find a match", "We couldn't find a match"]
         for _ in range(15):  # 15 seconds timeout
-            if page.locator("ul.jobs-search__results-list").is_visible():
-                found = True
-                break
-            # Check for no jobs text
-            no_jobs_texts = ["No matching jobs found", "We couldn’t find a match", "We couldn't find a match"]
+            # Check for no jobs text first
             if any(page.get_by_text(t, exact=False).is_visible() for t in no_jobs_texts):
                 print(f"ℹ️ No matching jobs found on page for {source}.")
                 browser.close()
                 return []
+            if page.locator("ul.jobs-search__results-list").is_visible():
+                found = True
+                break
             time.sleep(1)
+
+        # Check for no jobs text again to handle cases where a recommendation list (Jobs you may be interested in)
+        # loaded and triggered the visible list check before the 'No matching jobs found' text was checked or rendered.
+        if any(page.get_by_text(t, exact=False).is_visible() for t in no_jobs_texts):
+            print(f"ℹ️ No matching jobs found on page for {source} (confirmed after list visibility).")
+            browser.close()
+            return []
 
         if not found:
             print(f"⚠️ Job list container not found for {source} (Timeout).")

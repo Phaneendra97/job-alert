@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "C:\Work\github-repos\job-alert\main.py", line 13, in <module>
+    from supabase_utils import fetch_existing_job_ids, insert_new_jobs, log_error
+  File "C:\Work\github-repos\job-alert\supabase_utils.py", line 9, in <module>
+    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+  File "C:\Work\github-repos\job-alert\venv\Lib\site-packages\supabase\_sync\client.py", line 331, in create_client
+    return SyncClient.create(
+           ~~~~~~~~~~~~~~~~~^
+        supabase_url=supabase_url, supabase_key=supabase_key, options=options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Work\github-repos\job-alert\venv\Lib\site-packages\supabase\_sync\client.py", line 102, in create
+    client = cls(supabase_url, supabase_key, options)
+  File "C:\Work\github-repos\job-alert\venv\Lib\site-packages\supabase\_sync\client.py", line 64, in __init__
+    raise SupabaseException("Invalid API key")
+supabase._sync.client.SupabaseException: Invalid API key
