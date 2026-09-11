@@ -1,7 +1,7 @@
 from playwright.sync_api import sync_playwright
 from utils import extract_company_from_url
 
-ADOBE_URL = "https://careers.adobe.com/us/en/search-results?ak=somxz61hkyt3"
+ADOBE_URL = "https://careers.adobe.com/us/en/search-results?ak=1iykjkdv3glys"
 
 def fetch_jobs():
     jobs = []
