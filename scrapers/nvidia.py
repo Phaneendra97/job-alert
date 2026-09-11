@@ -1,6 +1,5 @@
 from playwright.sync_api import sync_playwright
 from utils import extract_company_from_url
-from urllib.parse import urljoin
 
 NVIDIA_URL = "https://nvidia.wd5.myworkdayjobs.com/NVIDIAExternalCareerSite?locations=91336993fab910af6d702fae0bb4c2e8&locations=91336993fab910af6d716528e9d4c406&timeType=5509c0b5959810ac0029943377d47364&workerSubType=0c40f6bd1d8f10adf6dae161b1844a15&workerSubType=ab40a98049581037a3ada55b087049b7&workerSubType=0c40f6bd1d8f10adf6dae2cd57444a16&jobFamilyGroup=0c40f6bd1d8f10ae43ffc668c6847e8c"
 
@@ -42,7 +41,7 @@ def fetch_jobs():
         location = job.get("locationsText", "Unknown")
         posted_on = job.get("postedOn", "Unknown")
         path = job.get("externalPath", "")
-        url = urljoin("https://nvidia.wd5.myworkdayjobs.com", path)
+        url = "https://nvidia.wd5.myworkdayjobs.com/en-US/NVIDIAExternalCareerSite" + path
 
         jobs.append({
             "id": job_id,
