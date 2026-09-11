@@ -51,6 +51,21 @@ def fetch_jobs():
         # Give time for request + render
         page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
         page.wait_for_timeout(8000)
+
+        # Grab the canonical careers.adobe.com job links rendered on the page,
+        # keyed by job id, so we can send/store those instead of the Workday applyUrl.
+        job_links = {}
+        hrefs = page.eval_on_selector_all('a[href*="/job/"]', "els => els.map(e => e.href)")
+        for href in hrefs:
+            marker = "/job/"
+            idx = href.find(marker)
+            if idx == -1:
+                continue
+            rest = href[idx + len(marker):]
+            job_id = rest.split("/")[0]
+            if job_id:
+                job_links[job_id] = href
+
         browser.close()
 
     if not job_response_json:
@@ -58,11 +73,11 @@ def fetch_jobs():
         return []
 
     for job in job_response_json.get("jobs", []):
-        job_url = job.get("applyUrl")
+        job_id = job.get("jobId") or job.get("reqId")
+        job_url = job_links.get(job_id) or job.get("applyUrl")
         if not job_url:
             continue
 
-        job_id = job.get("jobId") or job.get("reqId")
         title = job.get("title")
         location = job.get("location") or job.get("cityStateCountry")
 
