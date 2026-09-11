@@ -2,7 +2,7 @@ from playwright.sync_api import sync_playwright
 from utils import extract_company_from_url
 from urllib.parse import urljoin
 
-APPLE_URL = "https://jobs.apple.com/en-us/search?location=santa-clara-valley-cupertino-SCV+santa-clara-SNC+sunnyvale-SVL+san-francisco-bay-area-SFMETRO+san-francisco-SFO+south-san-francisco-SSF+san-jose-SJS&team=apps-and-frameworks-SFTWR-AF+cloud-and-infrastructure-SFTWR-CLD+core-operating-systems-SFTWR-COS+devops-and-site-reliability-SFTWR-DSR+engineering-project-management-SFTWR-EPM+information-systems-and-technology-SFTWR-ISTECH+machine-learning-and-ai-SFTWR-MCHLN+security-and-privacy-SFTWR-SEC+software-quality-automation-and-tools-SFTWR-SQAT+wireless-software-SFTWR-WSFT"
+APPLE_URL = "https://jobs.apple.com/en-us/search?location=sunnyvale-SVL+cupertino-CUP+santa-clara-SNC+santa-clara-valley-cupertino-SCV+san-francisco-bay-area-SFMETRO&key=project%2520manager+program%2520manager"
 
 def fetch_jobs():
     jobs = []

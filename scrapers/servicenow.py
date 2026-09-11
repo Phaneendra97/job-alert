@@ -3,11 +3,8 @@ from utils import extract_company_from_url
 
 BASE_URL = "https://careers.servicenow.com"
 JOBS_URL = (
-    f"{BASE_URL}/jobs/?search=&"
-    "team=Digital+Technology&team=Early+In+Career&"
-    "team=Engineering%2C+Infrastructure+and+Operations&"
-    "team=Support+and+Product+Success&"
-    "location=San+Francisco&location=Santa+Clara&pagesize=100"
+    f"{BASE_URL}/jobs/?search=program+manager&country=&region=California&"
+    "location=Santa+Clara&remote=true&origin=global"
 )
 
 def fetch_jobs():

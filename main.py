@@ -20,11 +20,11 @@ from scrapers.uber import fetch_jobs as fetch_uber_jobs
 from scrapers.linkedin import fetch_linkedin_jobs
 
 SCRAPERS = [
-    # fetch_servicenow_jobs,
-    # fetch_adobe_jobs,
-    # fetch_apple_jobs,
-    # fetch_nvidia_jobs,
-    # fetch_paypal_jobs,
+    fetch_servicenow_jobs,
+    fetch_adobe_jobs,
+    fetch_apple_jobs,
+    fetch_nvidia_jobs,
+    fetch_paypal_jobs,
     # fetch_uber_jobs,
     lambda: fetch_linkedin_jobs(
         "https://www.linkedin.com/jobs/search/?currentJobId=4388296709&distance=50&f_E=1%2C2%2C3&f_TPR=r3600&geoId=106233382&keywords=project%20manager&origin=JOB_SEARCH_PAGE_JOB_FILTER&refresh=true&sortBy=R", 
