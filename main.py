@@ -14,6 +14,7 @@ from supabase_utils import fetch_existing_job_ids, insert_new_jobs, log_error
 from email_utils import send_job_alert_email
 from scrapers.adobe import fetch_jobs as fetch_adobe_jobs
 from scrapers.apple import fetch_jobs as fetch_apple_jobs
+from scrapers.cisco import fetch_jobs as fetch_cisco_jobs
 from scrapers.nvidia import fetch_jobs as fetch_nvidia_jobs
 from scrapers.paypal import fetch_jobs as fetch_paypal_jobs
 from scrapers.uber import fetch_jobs as fetch_uber_jobs
@@ -23,6 +24,7 @@ SCRAPERS = [
     fetch_servicenow_jobs,
     fetch_adobe_jobs,
     fetch_apple_jobs,
+    fetch_cisco_jobs,
     fetch_nvidia_jobs,
     fetch_paypal_jobs,
     # fetch_uber_jobs,
