@@ -12,9 +12,11 @@ def ensure_playwright_browser_installed():
 from scrapers.servicenow import fetch_jobs as fetch_servicenow_jobs
 from supabase_utils import fetch_existing_job_ids, insert_new_jobs, log_error
 from email_utils import send_job_alert_email
+from utils import matches_title_filter
 from scrapers.adobe import fetch_jobs as fetch_adobe_jobs
 from scrapers.apple import fetch_jobs as fetch_apple_jobs
 from scrapers.cisco import fetch_jobs as fetch_cisco_jobs
+from scrapers.google import fetch_jobs as fetch_google_jobs
 from scrapers.nvidia import fetch_jobs as fetch_nvidia_jobs
 from scrapers.paypal import fetch_jobs as fetch_paypal_jobs
 from scrapers.uber import fetch_jobs as fetch_uber_jobs
@@ -25,6 +27,7 @@ SCRAPERS = [
     fetch_adobe_jobs,
     fetch_apple_jobs,
     fetch_cisco_jobs,
+    fetch_google_jobs,
     fetch_nvidia_jobs,
     fetch_paypal_jobs,
     # fetch_uber_jobs,
@@ -55,6 +58,13 @@ def main():
     for scraper in SCRAPERS:
         try:
             jobs = scraper()  # Run the scraper
+            if not jobs:
+                continue
+
+            # Keep only jobs whose title matches the keyword filter
+            total = len(jobs)
+            jobs = [job for job in jobs if matches_title_filter(job)]
+            print(f"🔎 Title filter kept {len(jobs)}/{total} jobs")
             if not jobs:
                 continue
 
