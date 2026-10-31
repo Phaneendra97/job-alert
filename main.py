@@ -10,7 +10,7 @@ def ensure_playwright_browser_installed():
 
 # Your imports
 from scrapers.servicenow import fetch_jobs as fetch_servicenow_jobs
-from supabase_utils import fetch_existing_job_ids, insert_new_jobs, log_error
+from supabase_utils import insert_new_jobs, log_error
 from email_utils import send_job_alert_email
 from utils import matches_title_filter
 from scrapers.adobe import fetch_jobs as fetch_adobe_jobs
@@ -73,12 +73,10 @@ def main():
 
             print(f"📡 [{source}] Found {len(jobs)} jobs from {company}")
 
-            existing_ids = fetch_existing_job_ids(source, company)
-            new_jobs = [job for job in jobs if job["id"] not in existing_ids]
+            new_jobs = insert_new_jobs(jobs, source, company)
 
             if new_jobs:
                 print(f"🆕 {len(new_jobs)} new job(s) for {company}")
-                insert_new_jobs(new_jobs, source, company)
                 send_job_alert_email(new_jobs, company)
             else:
                 print(f"✅ No new jobs for {company}")

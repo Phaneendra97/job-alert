@@ -8,37 +8,33 @@ SUPABASE_KEY = os.environ["SUPABASE_KEY"]
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-def fetch_existing_job_ids(source: str, company: str) -> set:
-    """Fetch all job IDs for a given source + company from Supabase."""
-    response = (
-        supabase
-        .table("jobs")
-        .select("id")
-        .eq("source", source)
-        .eq("company", company)
-        .execute()
-    )
-    if not response.data:
-        return set()
-    return {item["id"] for item in response.data}
+def fetch_existing_job_ids(job_ids: list) -> set:
+    """Return which of the given job IDs already exist in Supabase."""
+    existing = set()
+    chunk_size = 200  # keep the request URL a reasonable length
+    for i in range(0, len(job_ids), chunk_size):
+        chunk = job_ids[i:i + chunk_size]
+        response = supabase.table("jobs").select("id").in_("id", chunk).execute()
+        existing.update(item["id"] for item in response.data or [])
+    return existing
 
-def insert_new_jobs(jobs: list, source: str, company: str):
-    """Insert new jobs into Supabase with source and company metadata, skipping duplicates."""
+def insert_new_jobs(jobs: list, source: str, company: str) -> list:
+    """Insert jobs not already in Supabase and return the ones actually inserted."""
+    existing_ids = fetch_existing_job_ids([job["id"] for job in jobs])
+
+    new_jobs = []
     for job in jobs:
-        # Check if job already exists in the database by its ID
-        existing_job = supabase.table("jobs").select("id").eq("id", job["id"]).execute()
-
-        # If the job already exists, skip it
-        if existing_job.data:
-            continue  # Skip this job
-
-        # Add source and company metadata
+        if job["id"] in existing_ids:
+            continue
+        existing_ids.add(job["id"])  # also drops duplicates within this batch
         job["source"] = source
         job["company"] = company
-        
-        # Insert the job into the database
-        supabase.table("jobs").insert(job).execute()
-        
+        new_jobs.append(job)
+
+    if new_jobs:
+        supabase.table("jobs").insert(new_jobs).execute()
+    return new_jobs
+
 def log_error(error_message: str, scraper_name: str):
     """Log errors into the database."""
     try:
